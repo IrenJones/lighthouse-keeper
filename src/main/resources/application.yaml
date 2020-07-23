@@ -1,0 +1,20 @@
+server:
+  port: 5654
+  servlet:
+    contextPath: /keeper
+
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: ${DB_DRIVER}
+    database-platform: org.hibernate.dialect.PostgreSQL95Dialect
+    initialization-mode: always
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    generate-ddl: false
+
+  liquibase:
+    change-log: classpath:/db/changelog/master.xml

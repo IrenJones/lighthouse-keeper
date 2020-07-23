@@ -1,0 +1,41 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+  <changeSet author="Irina (generated)" id="1592896459664-1">
+    <createTable tableName="comments">
+      <column autoIncrement="true" name="id" type="BIGSERIAL">
+        <constraints primaryKey="true" primaryKeyName="comments_pkey"/>
+      </column>
+      <column name="content" type="TEXT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="nickname" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="post_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+  <changeSet author="Irina (generated)" id="1592896459664-2">
+    <createTable tableName="posts">
+      <column autoIncrement="true" name="id" type="BIGSERIAL">
+        <constraints primaryKey="true" primaryKeyName="posts_pkey"/>
+      </column>
+      <column name="content" type="TEXT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="description" type="VARCHAR(250)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="title" type="VARCHAR(100)">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+  <changeSet author="Irina (generated)" id="1592896459664-3">
+    <addUniqueConstraint columnNames="title" constraintName="uk_mchce1gm7f6otpphxd6ixsdps" tableName="posts"/>
+  </changeSet>
+  <changeSet author="Irina (generated)" id="1592896459664-4">
+    <addForeignKeyConstraint baseColumnNames="post_id" baseTableName="comments" constraintName="fkh4c7lvsc298whoyd4w9ta25cr" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="posts" validate="true"/>
+  </changeSet>
+</databaseChangeLog>
