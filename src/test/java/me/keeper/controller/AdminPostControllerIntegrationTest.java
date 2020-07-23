@@ -35,10 +35,10 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class PostControllerIntegrationTest {
+public class AdminPostControllerIntegrationTest {
 
 	@Autowired
-	private PostController postController;
+	private AdminPostController postController;
 
 	@Autowired
 	FilterChainProxy springSecurityFilterChain;
@@ -60,12 +60,12 @@ public class PostControllerIntegrationTest {
 		ObjectMapper mapper = new ObjectMapper();
 
 		// when
-		mockMvc.perform(MockMvcRequestBuilders.post("/blog/posts/add")
+		mockMvc.perform(MockMvcRequestBuilders.post("/admin/blog/posts/add")
 				.with(user("admin").password("pass").roles("ADMIN"))
-				.contentType(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content(mapper.writeValueAsString(dto)))
 				.andExpect(status().isCreated())
-				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(jsonPath("$.title", is("NEWS")))
 				.andExpect(jsonPath("$.description", is("Fantastic news from Finland!")))
 				.andExpect(jsonPath("$.content", is("Hard Rock Hallelujah!")))
@@ -81,12 +81,12 @@ public class PostControllerIntegrationTest {
 		ObjectMapper mapper = new ObjectMapper();
 
 		// when
-		mockMvc.perform(MockMvcRequestBuilders.put("/blog/posts/edit/1")
+		mockMvc.perform(MockMvcRequestBuilders.put("/admin/blog/posts/edit/1")
 				.with(user("admin").password("pass").roles("ADMIN"))
-				.contentType(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content(mapper.writeValueAsString(dto)))
 				.andExpect(status().isOk())
-				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(jsonPath("$.title", is("news")))
 				.andExpect(jsonPath("$.description", is("Fantastic news from Finland!")))
 				.andExpect(jsonPath("$.content", is("Hard Rock Hallelujah!")))
@@ -101,12 +101,12 @@ public class PostControllerIntegrationTest {
 		ObjectMapper mapper = new ObjectMapper();
 
 		// when
-		mockMvc.perform(MockMvcRequestBuilders.put("/blog/posts/edit/2")
+		mockMvc.perform(MockMvcRequestBuilders.put("/admin/blog/posts/edit/2")
 				.with(user("admin").password("pass").roles("ADMIN"))
-				.contentType(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content(mapper.writeValueAsString(dto)))
 				.andExpect(status().isBadRequest())
-				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(jsonPath("$.message", is("Entity not found. Post id 2")))
 				.andDo(print());
 	}
