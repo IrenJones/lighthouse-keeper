@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -27,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(value = PostController.class)
+@WebMvcTest(value = AdminPostController.class)
 public class AdminPostControllerUnitTest {
 
 	@MockBean
@@ -37,13 +38,14 @@ public class AdminPostControllerUnitTest {
 	private MockMvc mockMvc;
 
 	@InjectMocks
-	private PostController postController;
+	private AdminPostController postController;
 
 	@BeforeEach
 	public void init(){
 		MockitoAnnotations.initMocks(this);
 	}
 
+	@WithMockUser(username="admin",roles={"ADMIN"})
 	@Test
 	public void whenAddNewPostReturnPost() throws Exception {
 		// given
@@ -55,11 +57,11 @@ public class AdminPostControllerUnitTest {
 		when(postService.addPost(any(PostShortDto.class))).thenReturn(post);
 
 		// actual & then
-		mockMvc.perform(MockMvcRequestBuilders.post("/blog/posts/add")
-				.contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(MockMvcRequestBuilders.post("/admin/blog/posts/add")
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content(mapper.writeValueAsString(dto)))
 				.andExpect(status().isCreated())
-				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(jsonPath("$.title", is("NEWS")))
 				.andExpect(jsonPath("$.description", is("Fantastic news from Finland!")))
 				.andExpect(jsonPath("$.content", is("Hard Rock Hallelujah!")))

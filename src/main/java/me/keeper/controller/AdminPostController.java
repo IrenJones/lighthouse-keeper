@@ -20,7 +20,7 @@ import javax.validation.Valid;
 
 @RestController
 @PreAuthorize("hasRole('ROLE_ADMIN')")
-@RequestMapping(value = "/admin/blog/post")
+@RequestMapping(value = "/admin/blog/posts")
 public class AdminPostController {
 
 	@Autowired
