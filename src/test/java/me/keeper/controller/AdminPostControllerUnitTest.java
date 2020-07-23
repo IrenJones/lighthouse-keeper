@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(value = PostController.class)
-public class PostControllerUnitTest {
+public class AdminPostControllerUnitTest {
 
 	@MockBean
 	private PostService postService;

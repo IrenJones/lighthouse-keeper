@@ -17,10 +17,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @PropertySource("classpath:admin.properties")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Value("admin.username")
+	@Value("${admin.username}")
 	private String username;
 
-	@Value("admin.password")
+	@Value("${admin.password}")
 	private String password;
 
 	@Autowired
@@ -29,7 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/admin/*").access("hasRole('ADMIN')")
+				.antMatchers("/admin/**").access("hasRole('ADMIN')")
 				.anyRequest().permitAll()
 				.and()
 				.httpBasic()

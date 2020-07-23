@@ -35,7 +35,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class PostControllerIntegrationTest {
+public class AdminPostControllerIntegrationTest {
 
 	@Autowired
 	private PostController postController;
